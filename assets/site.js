@@ -1,12 +1,16 @@
 const rfqButton = document.querySelector("[data-copy-rfq]");
 const rfqNote = document.querySelector("[data-copy-note]");
 const rfqFields = {
+  name: document.querySelector("[data-rfq-name]"),
+  contact: document.querySelector("[data-rfq-contact]"),
   part: document.querySelector("[data-rfq-part]"),
   qty: document.querySelector("[data-rfq-qty]"),
   notes: document.querySelector("[data-rfq-notes]"),
 };
 
 function buildRfqText() {
+  const name = rfqFields.name?.value.trim() || "[name / company]";
+  const contact = rfqFields.contact?.value.trim() || "[email / phone]";
   const part = rfqFields.part?.value.trim() || "[part number / photo / drawing]";
   const qty = rfqFields.qty?.value.trim() || "[quantity]";
   const notes = rfqFields.notes?.value.trim() || "[material, pressure, size, standard, delivery target]";
@@ -14,15 +18,17 @@ function buildRfqText() {
   return [
     "RiteGrit RFQ",
     "",
+    `Name / company: ${name}`,
+    `Contact: ${contact}`,
     `Item: ${part}`,
     `Quantity: ${qty}`,
-    `Specs / notes: ${notes}`,
+    `Notes: ${notes}`,
     "",
     "Please check:",
-    "- correct product direction",
-    "- first offer or market read",
-    "- sample path if practical",
-    "- expected lead time and document needs",
+    "- source direction",
+    "- first market read",
+    "- sample path if needed",
+    "- lead time",
   ].join("\n");
 }
 
@@ -47,7 +53,7 @@ rfqButton?.addEventListener("click", async () => {
   try {
     await copyText(buildRfqText());
     if (rfqNote) {
-      rfqNote.textContent = "RFQ text copied. Paste it into email, WeChat, or SMS.";
+      rfqNote.textContent = "RFQ copied. Paste it into email, SMS, or WeChat.";
     }
   } catch {
     if (rfqNote) {
