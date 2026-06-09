@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /clients/
+Allow: /
+
+Sitemap: https://ritegrit.biz/sitemap.xml
